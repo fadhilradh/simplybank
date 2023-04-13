@@ -13,4 +13,9 @@ migrateup:
 migratedown:
 	migrate -path db/migration -database "postgresql://skygazer:hamdalah@localhost:5332/simple_bank?sslmode=disable" -verbose down
 
-.PHONY: postgres createdb dropdb migrateup migratedown
+makeFileDir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+
+sqlcgen:
+	docker run --rm -v $(makeFileDir):/src -w /src kjconroy/sqlc generate
+
+.PHONY: postgres createdb dropdb migrateup migratedown sqlcgen
