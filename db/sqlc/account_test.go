@@ -4,14 +4,16 @@ import (
 	"context"
 	"testing"
 
+	"github.com/jaswdr/faker"
 	"github.com/stretchr/testify/require"
 )
 
 func TestCreateAccount(t *testing.T) {
+	f := faker.New()
 	arg := CreateAccountParams{
-		OwnerName: "Fadhil",
+		OwnerName: f.Person().FirstName(),
 		Currency: "IDR",
-		Balance: 1000000000,
+		Balance: f.Int64Between(10000, 1000000000),
 	}
 
 	account, err := testQueries.CreateAccount(context.Background(), arg)
