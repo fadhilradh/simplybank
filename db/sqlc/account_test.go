@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func createRandomAccount(t *testing.T) Account {
+func CreateRandomAccount(t *testing.T) Account {
 	f := faker.New()
 	arg := CreateAccountParams{
 		OwnerName: f.Person().FirstName(),
@@ -33,11 +33,11 @@ func createRandomAccount(t *testing.T) Account {
 }
 
 func TestCreateAccount(t *testing.T) {
-	createRandomAccount(t)
+	CreateRandomAccount(t)
 }
 
 func TestGetAccount(t *testing.T) {
-	account1 := createRandomAccount(t)
+	account1 := CreateRandomAccount(t)
 	account2, err := testQueries.GetAccount(context.Background(), account1.ID)
 
 	require.NoError(t, err)
@@ -54,7 +54,7 @@ func TestGetAccount(t *testing.T) {
 }
 
 func TestUpdateAccount(t *testing.T) {
-	account1 := createRandomAccount(t)
+	account1 := CreateRandomAccount(t)
 	f := faker.New()
 	
 	arg := UpdateAccountParams{
@@ -77,7 +77,7 @@ func TestUpdateAccount(t *testing.T) {
 }
 
 func TestDeleteAccount(t *testing.T) {
-	acc := createRandomAccount(t)
+	acc := CreateRandomAccount(t)
 
 	_, err := testQueries.DeleteAccount(context.Background(), acc.ID)
 	require.NoError(t, err)
@@ -89,3 +89,4 @@ func TestDeleteAccount(t *testing.T) {
 	require.Empty(t, deletedAcc)
 	require.Zero(t, deletedAcc.ID)
 }
+
