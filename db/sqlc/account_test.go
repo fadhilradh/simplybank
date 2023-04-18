@@ -13,9 +13,9 @@ import (
 func CreateRandomAccount(t *testing.T) Account {
 	f := faker.New()
 	arg := CreateAccountParams{
-		OwnerName: f.Person().FirstName(),
-		Currency: "IDR",
-		Balance: f.Int64Between(10000, 1000000000),
+		OwnerName: f.Person().Name(),
+		Currency:  "IDR",
+		Balance:   f.Int64Between(10000, 1000000000),
 	}
 
 	account, err := testQueries.CreateAccount(context.Background(), arg)
@@ -56,9 +56,9 @@ func TestGetAccount(t *testing.T) {
 func TestUpdateAccount(t *testing.T) {
 	account1 := CreateRandomAccount(t)
 	f := faker.New()
-	
+
 	arg := UpdateAccountParams{
-		ID: account1.ID,
+		ID:      account1.ID,
 		Balance: f.Int64Between(10_000, 1_000_000_000),
 	}
 
@@ -89,4 +89,3 @@ func TestDeleteAccount(t *testing.T) {
 	require.Empty(t, deletedAcc)
 	require.Zero(t, deletedAcc.ID)
 }
-

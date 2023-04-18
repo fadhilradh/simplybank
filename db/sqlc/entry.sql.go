@@ -30,3 +30,18 @@ func (q *Queries) CreateEntry(ctx context.Context, arg CreateEntryParams) (Entry
 	)
 	return i, err
 }
+
+const getEntry = `-- name: GetEntry :one
+SELECT FROM entries 
+WHERE id = $1
+`
+
+type GetEntryRow struct {
+}
+
+func (q *Queries) GetEntry(ctx context.Context, id int64) (GetEntryRow, error) {
+	row := q.db.QueryRowContext(ctx, getEntry, id)
+	var i GetEntryRow
+	err := row.Scan()
+	return i, err
+}
