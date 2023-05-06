@@ -21,7 +21,7 @@ sqlcgen:
 test:
 	go test -v -cover ./...
 
-server:
+g :
 	go run main.go
 
 .PHONY: postgres createdb dropdb migrateup migratedown sqlcgen
